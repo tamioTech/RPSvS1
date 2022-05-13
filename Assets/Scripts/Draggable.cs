@@ -42,8 +42,5 @@ public class Draggable : MonoBehaviour, IPointerDownHandler ,IBeginDragHandler, 
         canvasGroup.blocksRaycasts = true;
     }
 
-    //public void OnDrop(PointerEventData eventData)
-    //{
-    //    Debug.Log("drop it on something");
-    //}
+    
 }
