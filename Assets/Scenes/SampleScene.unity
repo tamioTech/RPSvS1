@@ -523,6 +523,7 @@ GameObject:
   - component: {fileID: 636448746}
   - component: {fileID: 636448745}
   - component: {fileID: 636448744}
+  - component: {fileID: 636448747}
   m_Layer: 5
   m_Name: Boxing Glove
   m_TagString: Untagged
@@ -601,6 +602,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 636448742}
   m_CullTransparentMesh: 1
+--- !u!225 &636448747
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 636448742}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1562551025
 GameObject:
   m_ObjectHideFlags: 0
@@ -612,8 +625,9 @@ GameObject:
   - component: {fileID: 1562551026}
   - component: {fileID: 1562551028}
   - component: {fileID: 1562551027}
+  - component: {fileID: 1562551029}
   m_Layer: 5
-  m_Name: Slot 1 Background
+  m_Name: Slot 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -678,6 +692,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1562551025}
   m_CullTransparentMesh: 1
+--- !u!114 &1562551029
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1562551025}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cce0a7ce73a3348459a93900c733ddf3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1612826744
 GameObject:
   m_ObjectHideFlags: 0

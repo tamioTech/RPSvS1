@@ -5,13 +5,16 @@ using UnityEngine.EventSystems;
 
 public class Draggable : MonoBehaviour, IPointerDownHandler ,IBeginDragHandler, IDragHandler, IEndDragHandler
 {
+    [SerializeField] private Canvas canvas;
 
     private RectTransform rectTransform;
-    [SerializeField] private Canvas canvas;
+    private CanvasGroup canvasGroup;
+
 
     private void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
+        canvasGroup = GetComponent<CanvasGroup>();
     }
 
     public void OnPointerDown(PointerEventData eventData)
@@ -22,7 +25,8 @@ public class Draggable : MonoBehaviour, IPointerDownHandler ,IBeginDragHandler, 
     public void OnBeginDrag(PointerEventData eventData)
     {
         Debug.Log("begin drag");
-
+        canvasGroup.alpha = .6f;
+        canvasGroup.blocksRaycasts = false;
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -34,6 +38,12 @@ public class Draggable : MonoBehaviour, IPointerDownHandler ,IBeginDragHandler, 
     public void OnEndDrag(PointerEventData eventData)
     {
         Debug.Log("stop dragging");
+        canvasGroup.alpha = 1f;
+        canvasGroup.blocksRaycasts = true;
     }
 
+    //public void OnDrop(PointerEventData eventData)
+    //{
+    //    Debug.Log("drop it on something");
+    //}
 }
