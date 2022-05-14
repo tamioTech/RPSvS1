@@ -1,9 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using System;
 
 public class GameHandler : MonoBehaviour
 {
+    [SerializeField] public int score = 5;
+    [SerializeField] TextMeshProUGUI scoreText;
+    [SerializeField] Transform gloveHome;
+
     private string P1a = null;
     private string P2a = null;
     private string P1b = null;
@@ -47,15 +53,20 @@ public class GameHandler : MonoBehaviour
     public void BattleTime()
     {
         print("battle button pressed");
-        print(P1a);
-        print(P2a);
         if (P1a == null || P2a == null) return;
         if (P1b == null || P2b == null) return;
         if (P1c == null || P2c == null) return;
         SlotABattle();
         SlotBBattle();
         SlotCBattle();
+        UpdateScoreBoard();
+        CheckScore();
+    }
 
+    private void CheckScore()
+    {
+        if (score <= 0) { print("P2 WINS!!!"); }
+        if (score >=10) { print("P1 WINS!!!"); }
     }
 
     private void SlotABattle()
@@ -67,26 +78,32 @@ public class GameHandler : MonoBehaviour
         if (P1a == "BoxingGlove" && P2a == "Sword")
         {
             print("player 1 wins a");
+            score += 1;
         }
         if (P1a == "BoxingGlove" && P2a == "Newspaper")
         {
             print("player 1 loses a");
+            score -= 1;
         }
         if (P1a == "Newspaper" && P2a == "BoxingGlove")
         {
             print("player 1 wins a");
+            score += 1;
         }
         if (P1a == "Newspaper" && P2a == "Sword")
         {
             print("player 1 loses a");
+            score -= 1;
         }
         if (P1a == "Sword" && P2a == "Newspaper")
         {
             print("player 1 wins a");
+            score += 1;
         }
         if (P1a == "Sword" && P2a == "BoxingGlove")
         {
             print("player 1 loses a");
+            score -= 1;
         }
         else
         {
@@ -103,33 +120,38 @@ public class GameHandler : MonoBehaviour
         if (P1b == "BoxingGlove" && P2b == "Sword")
         {
             print("player 1 wins b");
+            score += 1;
         }
         if (P1b == "BoxingGlove" && P2b == "Newspaper")
         {
             print("player 1 loses b");
+            score -= 1;
         }
         if (P1b == "Newspaper" && P2b == "BoxingGlove")
         {
             print("player 1 wins b");
+            score += 1;
         }
         if (P1b == "Newspaper" && P2b == "Sword")
         {
             print("player 1 loses b");
+            score -= 1;
         }
         if (P1b == "Sword" && P2b == "Newspaper")
         {
             print("player 1 wins b");
+            score += 1;
         }
         if (P1b == "Sword" && P2b == "BoxingGlove")
         {
             print("player 1 loses b");
+            score -= 1;
         }
         else
         {
             print("slot b else statement");
         }
     }
-
 
     private void SlotCBattle()
     {
@@ -140,26 +162,32 @@ public class GameHandler : MonoBehaviour
         if (P1c == "BoxingGlove" && P2c == "Sword")
         {
             print("player 1 wins c");
+            score += 1;
         }
         if (P1c == "BoxingGlove" && P2c == "Newspaper")
         {
             print("player 1 loses c");
+            score -= 1;
         }
         if (P1c == "Newspaper" && P2c == "BoxingGlove")
         {
             print("player 1 wins c");
+            score += 1;
         }
         if (P1c == "Newspaper" && P2c == "Sword")
         {
             print("player 1 loses c");
+            score -= 1;
         }
         if (P1c == "Sword" && P2c == "Newspaper")
         {
             print("player 1 wins c");
+            score += 1;
         }
         if (P1c == "Sword" && P2c == "BoxingGlove")
         {
             print("player 1 loses c");
+            score -= 1;
         }
         else
         {
@@ -170,10 +198,33 @@ public class GameHandler : MonoBehaviour
 
     public void ResetRound()
     {
+        P1a = null;
+        P2a = null;
+        P1b = null;
+        P2b = null;
         P1c = null;
         P2c = null;
 
-        
+        Glove[] gloves = FindObjectsOfType<Glove>();
+        for(int i = 0; i< gloves.Length; i++)
+        {
+            gloves[i].transform.position = gloveHome.position;
+        }
+
+        UpdateScoreBoard();
+    }
+
+    public void ResetGame()
+    {
+        ResetRound();
+        score = 5;
+        UpdateScoreBoard();
+    }
+
+    private void UpdateScoreBoard()
+    {
+        print("the score is: " + score);
+        scoreText.text = score.ToString();
     }
 
 }
