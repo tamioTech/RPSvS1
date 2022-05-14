@@ -19,25 +19,27 @@ public class Draggable : MonoBehaviour, IPointerDownHandler ,IBeginDragHandler, 
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        Debug.Log("I got clicked");
+        //Debug.Log("clicked on something");
     }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        Debug.Log("begin drag");
+        //Debug.Log("begin drag");
         canvasGroup.alpha = .6f;
         canvasGroup.blocksRaycasts = false;
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        Debug.Log("dragging");
+        //Debug.Log("dragging");
         rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor;
+
+       
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        Debug.Log("stop dragging");
+        //Debug.Log("stop dragging");
         canvasGroup.alpha = 1f;
         canvasGroup.blocksRaycasts = true;
     }

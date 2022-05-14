@@ -5,30 +5,53 @@ using UnityEngine.EventSystems;
 
 public class SlotDrop : MonoBehaviour, IDropHandler
 {
-
+    GameHandler gameHandler;
 
     private void Awake()
     {
-
+        gameHandler = FindObjectOfType<GameHandler>();
     }
 
     public void OnDrop(PointerEventData eventData)
     {
-        Debug.Log("card dropped");
+        //Debug.Log("card dropped");
 
         if(eventData.pointerDrag != null)
         {
             eventData.pointerDrag.GetComponent<Transform>().position = this.transform.position;
-            //eventData.pointerDrag.GetComponent<RectTransform>().anchoredPosition = objTr.position;
-            //print(eventData.pointerDrag.GetComponent<RectTransform>().anchoredPosition);
+            
         }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        print("trigger finger");
+        //print("trigger finger");
+        //print(collision.name);
+        if(gameObject.tag == "P1a")
+        {
+            gameHandler.P1AChoice(collision.tag);
+        }
+        else if(gameObject.tag == "P2a")
+        {
+            gameHandler.P2AChoice(collision.tag);
+        }
+        else if (gameObject.tag == "P1b")
+        {
+            gameHandler.P1BChoice(collision.tag);
+        }
+        else if (gameObject.tag == "P2b")
+        {
+            gameHandler.P2BChoice(collision.tag);
+        }
+        else if (gameObject.tag == "P1c")
+        {
+            gameHandler.P1CChoice(collision.tag);
+        }
+        else if (gameObject.tag == "P2c")
+        {
+            gameHandler.P2CChoice(collision.tag);
+        }
     }
-
 
     public void GloveButton()
     {
@@ -44,6 +67,5 @@ public class SlotDrop : MonoBehaviour, IDropHandler
     {
         print("It cuts like a knife");
     }
-
 
 }

@@ -10,6 +10,14 @@ TagManager:
   - Slot1
   - Slot2
   - Slot3
+  - Slot1a
+  - Slot1b
+  - P1a
+  - P2a
+  - P1b
+  - P1c
+  - P2b
+  - P2c
   layers:
   - Default
   - TransparentFX
