@@ -1685,6 +1685,8 @@ MonoBehaviour:
   score: 5
   scoreText: {fileID: 643848716}
   gloveHome: {fileID: 1562551026}
+  newspaperHome: {fileID: 1324496660}
+  swordHome: {fileID: 1186469778}
 --- !u!1 &1010354003
 GameObject:
   m_ObjectHideFlags: 0

@@ -8,7 +8,8 @@ public class GameHandler : MonoBehaviour
 {
     [SerializeField] public int score = 5;
     [SerializeField] TextMeshProUGUI scoreText;
-    [SerializeField] Transform gloveHome;
+    [SerializeField] Transform gloveHome, newspaperHome, swordHome;
+
 
     private string P1a = null;
     private string P2a = null;
@@ -209,6 +210,16 @@ public class GameHandler : MonoBehaviour
         for(int i = 0; i< gloves.Length; i++)
         {
             gloves[i].transform.position = gloveHome.position;
+        }
+        Newspaper[] newspapers = FindObjectsOfType<Newspaper>();
+        for (int i = 0; i < newspapers.Length; i++)
+        {
+            newspapers[i].transform.position = newspaperHome.position;
+        }
+        Sword[] swords = FindObjectsOfType<Sword>();
+        for (int i = 0; i < swords.Length; i++)
+        {
+            swords[i].transform.position = swordHome.position;
         }
 
         UpdateScoreBoard();
