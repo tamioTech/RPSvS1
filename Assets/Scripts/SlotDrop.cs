@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 public class SlotDrop : MonoBehaviour, IDropHandler
 {
 
+
     private void Awake()
     {
 
@@ -21,6 +22,11 @@ public class SlotDrop : MonoBehaviour, IDropHandler
             //eventData.pointerDrag.GetComponent<RectTransform>().anchoredPosition = objTr.position;
             //print(eventData.pointerDrag.GetComponent<RectTransform>().anchoredPosition);
         }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        print("trigger finger");
     }
 
 

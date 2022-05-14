@@ -3,7 +3,13 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - BoxingGlove
+  - Newspaper
+  - Sword
+  - Slot1
+  - Slot2
+  - Slot3
   layers:
   - Default
   - TransparentFX
