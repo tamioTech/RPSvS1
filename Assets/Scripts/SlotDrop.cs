@@ -5,13 +5,10 @@ using UnityEngine.EventSystems;
 
 public class SlotDrop : MonoBehaviour, IDropHandler
 {
-    [SerializeField] private Transform objTr;
-    [SerializeField] private Canvas canvas;
 
     private void Awake()
     {
-        objTr = GetComponent<Transform>();
-        canvas = GetComponent<Canvas>();
+
     }
 
     public void OnDrop(PointerEventData eventData)
@@ -22,7 +19,25 @@ public class SlotDrop : MonoBehaviour, IDropHandler
         {
             eventData.pointerDrag.GetComponent<Transform>().position = this.transform.position;
             //eventData.pointerDrag.GetComponent<RectTransform>().anchoredPosition = objTr.position;
-            print(eventData.pointerDrag.GetComponent<RectTransform>().anchoredPosition);
+            //print(eventData.pointerDrag.GetComponent<RectTransform>().anchoredPosition);
         }
-    } 
+    }
+
+
+    public void GloveButton()
+    {
+        print("gloves up");
+    }
+
+    public void NewsPaperButton()
+    {
+        print("extra extra read all about it");
+    }
+
+    public void SwordButton()
+    {
+        print("It cuts like a knife");
+    }
+
+
 }
