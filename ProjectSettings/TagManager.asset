@@ -18,6 +18,7 @@ TagManager:
   - P1c
   - P2b
   - P2c
+  - P2Card
   layers:
   - Default
   - TransparentFX

@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System;
+using UnityEngine.UI;
 
 public class GameHandler : MonoBehaviour
 {
     [SerializeField] public int score = 5;
     [SerializeField] TextMeshProUGUI scoreText;
     [SerializeField] Transform gloveHome, newspaperHome, swordHome;
+    [SerializeField] GameObject p2a1, p2a2, p2a3, p2b1, p2b2, p2b3, p2c1, p2c2, p2c3;
 
 
     private string P1a = null;
@@ -17,6 +19,8 @@ public class GameHandler : MonoBehaviour
     private string P2b = null;
     private string P1c = null;
     private string P2c = null;
+
+    string[] rdmDraw = new string[] { "BoxingGlove", "Newspaper", "Sword" };
 
     public void P1AChoice(string rpsChoice)
     {
@@ -51,9 +55,10 @@ public class GameHandler : MonoBehaviour
         P2c = rpsChoice;
     }
 
-    public void BattleTime()
+    public void BeginBattleButtonPressed()
     {
         print("battle button pressed");
+        Player2RandomCards();
         if (P1a == null || P2a == null) return;
         if (P1b == null || P2b == null) return;
         if (P1c == null || P2c == null) return;
@@ -62,6 +67,36 @@ public class GameHandler : MonoBehaviour
         SlotCBattle();
         UpdateScoreBoard();
         CheckScore();
+    }
+
+    private void Player2RandomCards()
+    {
+        float rdmNum1 = UnityEngine.Random.Range(0, 3);
+        float rdmNum2 = UnityEngine.Random.Range(0, 3);
+        float rdmNum3 = UnityEngine.Random.Range(0, 3);
+
+        print("rando: " + rdmNum1);
+        
+        P2a = rdmDraw[Mathf.RoundToInt(rdmNum1)];
+        P2b = rdmDraw[Mathf.RoundToInt(rdmNum2)];
+        P2c = rdmDraw[Mathf.RoundToInt(rdmNum3)];
+
+        if (rdmNum1 == 0){p2a1.SetActive(true);}
+        if (rdmNum1 == 1) { p2a2.SetActive(true); }
+        if (rdmNum1 == 2) { p2a3.SetActive(true); }
+
+        if (rdmNum2 == 0) { p2b1.SetActive(true); }
+        if (rdmNum2 == 1) { p2b2.SetActive(true); }
+        if (rdmNum2 == 2) { p2b3.SetActive(true); }
+
+        if (rdmNum3 == 0) { p2c1.SetActive(true); }
+        if (rdmNum3 == 1) { p2c2.SetActive(true); }
+        if (rdmNum3 == 2) { p2c3.SetActive(true); }
+
+
+        print("p2a: " + P2a);
+        print("p2b: " + P2b);
+        print("p2c: " + P2c);
     }
 
     private void CheckScore()
@@ -108,7 +143,7 @@ public class GameHandler : MonoBehaviour
         }
         else
         {
-            print("slot a else statement");
+            //print("slot a else statement");
         }
     }
 
@@ -150,7 +185,7 @@ public class GameHandler : MonoBehaviour
         }
         else
         {
-            print("slot b else statement");
+            //print("slot b else statement");
         }
     }
 
@@ -192,12 +227,12 @@ public class GameHandler : MonoBehaviour
         }
         else
         {
-            print("slot c else statement");
+            //print("slot c else statement");
         }
     }
 
 
-    public void ResetRound()
+    public void NextRound()
     {
         P1a = null;
         P2a = null;
@@ -205,6 +240,16 @@ public class GameHandler : MonoBehaviour
         P2b = null;
         P1c = null;
         P2c = null;
+
+        p2a1.SetActive(false);
+        p2a2.SetActive(false);
+        p2a3.SetActive(false);
+        p2b1.SetActive(false);
+        p2b2.SetActive(false);
+        p2b3.SetActive(false);
+        p2c1.SetActive(false);
+        p2c2.SetActive(false);
+        p2c3.SetActive(false);
 
         Glove[] gloves = FindObjectsOfType<Glove>();
         for(int i = 0; i< gloves.Length; i++)
@@ -227,7 +272,7 @@ public class GameHandler : MonoBehaviour
 
     public void ResetGame()
     {
-        ResetRound();
+        NextRound();
         score = 5;
         UpdateScoreBoard();
     }

@@ -45,4 +45,6 @@ public class Draggable : MonoBehaviour, IPointerDownHandler ,IBeginDragHandler, 
     }
 
     
+
+    
 }
