@@ -7,72 +7,82 @@ using UnityEngine.UI;
 
 public class GameHandler : MonoBehaviour
 {
-    [SerializeField] public int score = 5;
-    [SerializeField] TextMeshProUGUI scoreText;
+
     [SerializeField] Transform gloveHome, newspaperHome, swordHome;
-    [SerializeField] GameObject p2a1, p2a2, p2a3, p2b1, p2b2, p2b3, p2c1, p2c2, p2c3;
+    [SerializeField] GameObject p2a1, p2a2, p2a3, p2b1, p2b2, p2b3;
     [SerializeField] GameObject scoreboard;
 
-    private string P1a, P1b, P1c, P2a, P2b, P2c = null;
-    //private string P2a = null;
-    //private string P1b = null;
-    //private string P2b = null;
-    //private string P1c = null;
-    //private string P2c = null;
+    private int score = 4;
+    private string P1a, P1b, P2a, P2b = null;
+
+    string[] rdmDraw = new string[] { "BoxingGlove", "Newspaper", "Sword" };
+
+    bool slotAFilled, slotBFilled, battling;
 
     Slider scoreboardSlider;
 
-    string[] rdmDraw = new string[] { "BoxingGlove", "Newspaper", "Sword" };
+
 
     private void Awake()
     {
         scoreboardSlider = scoreboard.GetComponent<Slider>();
+        slotAFilled = false;
+        slotBFilled = false;
+        battling = false;
     }
 
-    #region P1Choices
+    private void Update()
+    {
+        if (!slotAFilled || !slotBFilled) return;
+
+        BeginBattleButtonPressed();
+    }
+
+#region P1Choices
 
     public void P1AChoice(string rpsChoice)
     {
-
         P1a = rpsChoice;
+        slotAFilled = true;
     }
 
     public void P1BChoice(string rpsChoice)
     {
 
         P1b = rpsChoice;
-    }
-
-    public void P1CChoice(string rpsChoice)
-    {
-
-        P1c = rpsChoice;
+        slotBFilled = true;
     }
 
 #endregion
 
     public void BeginBattleButtonPressed()
     {
+        print("slotAFilled1:" + slotAFilled);
+        print("slotBFilled1:" + slotBFilled);
+
+        print("begin battle");
+
         Player2RandomCards();
         if (P1a == null || P2a == null) return;
         if (P1b == null || P2b == null) return;
-        if (P1c == null || P2c == null) return;
         SlotABattle();
         SlotBBattle();
-        SlotCBattle();
         UpdateScoreBoard();
         CheckScore();
+        slotAFilled = false;
+        slotBFilled = false;
+        Invoke("NextRound", 1);
     }
 
     private void Player2RandomCards()
     {
         float rdmNum1 = UnityEngine.Random.Range(0, 3);
         float rdmNum2 = UnityEngine.Random.Range(0, 3);
-        float rdmNum3 = UnityEngine.Random.Range(0, 3);
+        //float rdmNum3 = UnityEngine.Random.Range(0, 3);
 
         P2a = rdmDraw[Mathf.RoundToInt(rdmNum1)];
         P2b = rdmDraw[Mathf.RoundToInt(rdmNum2)];
-        P2c = rdmDraw[Mathf.RoundToInt(rdmNum3)];
+        //P2c = rdmDraw[Mathf.RoundToInt(rdmNum3)];
 
         if (rdmNum1 == 0){p2a1.SetActive(true);}
         if (rdmNum1 == 1) { p2a2.SetActive(true); }
@@ -82,16 +92,16 @@ public class GameHandler : MonoBehaviour
         if (rdmNum2 == 1) { p2b2.SetActive(true); }
         if (rdmNum2 == 2) { p2b3.SetActive(true); }
 
-        if (rdmNum3 == 0) { p2c1.SetActive(true); }
-        if (rdmNum3 == 1) { p2c2.SetActive(true); }
-        if (rdmNum3 == 2) { p2c3.SetActive(true); }
+        //if (rdmNum3 == 0) { p2c1.SetActive(true); }
+        //if (rdmNum3 == 1) { p2c2.SetActive(true); }
+        //if (rdmNum3 == 2) { p2c3.SetActive(true); }
 
     }
 
     private void CheckScore()
     {
         if (score <= 0) { print("P2 WINS!!!"); }
-        if (score >=10) { print("P1 WINS!!!"); }
+        if (score >=6) { print("P1 WINS!!!"); }
     }
 
     private void SlotABattle()
@@ -178,48 +188,6 @@ public class GameHandler : MonoBehaviour
         }
     }
 
-    private void SlotCBattle()
-    {
-        if (P1c == P2c)
-        {
-            print("Tie game c");
-        }
-        if (P1c == "BoxingGlove" && P2c == "Sword")
-        {
-            print("player 1 wins c");
-            score += 1;
-        }
-        if (P1c == "BoxingGlove" && P2c == "Newspaper")
-        {
-            print("player 1 loses c");
-            score -= 1;
-        }
-        if (P1c == "Newspaper" && P2c == "BoxingGlove")
-        {
-            print("player 1 wins c");
-            score += 1;
-        }
-        if (P1c == "Newspaper" && P2c == "Sword")
-        {
-            print("player 1 loses c");
-            score -= 1;
-        }
-        if (P1c == "Sword" && P2c == "Newspaper")
-        {
-            print("player 1 wins c");
-            score += 1;
-        }
-        if (P1c == "Sword" && P2c == "BoxingGlove")
-        {
-            print("player 1 loses c");
-            score -= 1;
-        }
-        else
-        {
-            //print("slot c else statement");
-        }
-    }
-
 
     public void NextRound()
     {
@@ -229,8 +197,8 @@ public class GameHandler : MonoBehaviour
         P2a = null;
         P1b = null;
         P2b = null;
-        P1c = null;
-        P2c = null;
+        //P1c = null;
+        //P2c = null;
 
         p2a1.SetActive(false);
         p2a2.SetActive(false);
@@ -238,9 +206,9 @@ public class GameHandler : MonoBehaviour
         p2b1.SetActive(false);
         p2b2.SetActive(false);
         p2b3.SetActive(false);
-        p2c1.SetActive(false);
-        p2c2.SetActive(false);
-        p2c3.SetActive(false);
+        //p2c1.SetActive(false);
+        //p2c2.SetActive(false);
+        //p2c3.SetActive(false);
 
         #endregion
 
@@ -262,6 +230,11 @@ public class GameHandler : MonoBehaviour
             swords[i].transform.position = swordHome.position;
         }
         #endregion
+
+        
+
+        print("slotAFilled1:" + slotAFilled);
+        print("slotBFilled1:" + slotBFilled);
     }
 
     public void ResetGame()
@@ -273,8 +246,6 @@ public class GameHandler : MonoBehaviour
 
     private void UpdateScoreBoard()
     {
-        print("the score is: " + score);
-        scoreText.text = score.ToString();
         scoreboardSlider.value = score;
     }
 

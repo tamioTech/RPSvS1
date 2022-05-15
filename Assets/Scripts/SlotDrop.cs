@@ -14,8 +14,6 @@ public class SlotDrop : MonoBehaviour, IDropHandler
 
     public void OnDrop(PointerEventData eventData)
     {
-        //Debug.Log("card dropped");
-
         if(eventData.pointerDrag != null)
         {
             eventData.pointerDrag.GetComponent<Transform>().position = this.transform.position;
@@ -25,8 +23,6 @@ public class SlotDrop : MonoBehaviour, IDropHandler
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        //print("trigger finger");
-        //print(collision.name);
         if(gameObject.tag == "P1a")
         {
             gameHandler.P1AChoice(collision.tag);
@@ -34,10 +30,6 @@ public class SlotDrop : MonoBehaviour, IDropHandler
         else if (gameObject.tag == "P1b")
         {
             gameHandler.P1BChoice(collision.tag);
-        }
-        else if (gameObject.tag == "P1c")
-        {
-            gameHandler.P1CChoice(collision.tag);
         }
     }
 
