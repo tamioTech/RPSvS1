@@ -11,26 +11,30 @@ public class GameHandler : MonoBehaviour
     [SerializeField] TextMeshProUGUI scoreText;
     [SerializeField] Transform gloveHome, newspaperHome, swordHome;
     [SerializeField] GameObject p2a1, p2a2, p2a3, p2b1, p2b2, p2b3, p2c1, p2c2, p2c3;
+    [SerializeField] GameObject scoreboard;
 
+    private string P1a, P1b, P1c, P2a, P2b, P2c = null;
+    //private string P2a = null;
+    //private string P1b = null;
+    //private string P2b = null;
+    //private string P1c = null;
+    //private string P2c = null;
 
-    private string P1a = null;
-    private string P2a = null;
-    private string P1b = null;
-    private string P2b = null;
-    private string P1c = null;
-    private string P2c = null;
+    Slider scoreboardSlider;
 
     string[] rdmDraw = new string[] { "BoxingGlove", "Newspaper", "Sword" };
+
+    private void Awake()
+    {
+        scoreboardSlider = scoreboard.GetComponent<Slider>();
+    }
+
+    #region P1Choices
 
     public void P1AChoice(string rpsChoice)
     {
 
         P1a = rpsChoice;
-    }
-
-    public void P2AChoice(string rpsChoice)
-    {
-        P2a = rpsChoice;
     }
 
     public void P1BChoice(string rpsChoice)
@@ -39,25 +43,16 @@ public class GameHandler : MonoBehaviour
         P1b = rpsChoice;
     }
 
-    public void P2BChoice(string rpsChoice)
-    {
-        P2b = rpsChoice;
-    }
-
     public void P1CChoice(string rpsChoice)
     {
 
         P1c = rpsChoice;
     }
 
-    public void P2CChoice(string rpsChoice)
-    {
-        P2c = rpsChoice;
-    }
+#endregion
 
     public void BeginBattleButtonPressed()
     {
-        print("battle button pressed");
         Player2RandomCards();
         if (P1a == null || P2a == null) return;
         if (P1b == null || P2b == null) return;
@@ -75,8 +70,6 @@ public class GameHandler : MonoBehaviour
         float rdmNum2 = UnityEngine.Random.Range(0, 3);
         float rdmNum3 = UnityEngine.Random.Range(0, 3);
 
-        print("rando: " + rdmNum1);
-        
         P2a = rdmDraw[Mathf.RoundToInt(rdmNum1)];
         P2b = rdmDraw[Mathf.RoundToInt(rdmNum2)];
         P2c = rdmDraw[Mathf.RoundToInt(rdmNum3)];
@@ -93,10 +86,6 @@ public class GameHandler : MonoBehaviour
         if (rdmNum3 == 1) { p2c2.SetActive(true); }
         if (rdmNum3 == 2) { p2c3.SetActive(true); }
 
-
-        print("p2a: " + P2a);
-        print("p2b: " + P2b);
-        print("p2c: " + P2c);
     }
 
     private void CheckScore()
@@ -234,6 +223,8 @@ public class GameHandler : MonoBehaviour
 
     public void NextRound()
     {
+        #region nullAndSetActiveFalse
+
         P1a = null;
         P2a = null;
         P1b = null;
@@ -251,6 +242,10 @@ public class GameHandler : MonoBehaviour
         p2c2.SetActive(false);
         p2c3.SetActive(false);
 
+        #endregion
+
+        #region sendDraggablesHome
+
         Glove[] gloves = FindObjectsOfType<Glove>();
         for(int i = 0; i< gloves.Length; i++)
         {
@@ -266,14 +261,13 @@ public class GameHandler : MonoBehaviour
         {
             swords[i].transform.position = swordHome.position;
         }
-
-        UpdateScoreBoard();
+        #endregion
     }
 
     public void ResetGame()
     {
         NextRound();
-        score = 5;
+        score = 4;
         UpdateScoreBoard();
     }
 
@@ -281,6 +275,7 @@ public class GameHandler : MonoBehaviour
     {
         print("the score is: " + score);
         scoreText.text = score.ToString();
+        scoreboardSlider.value = score;
     }
 
 }

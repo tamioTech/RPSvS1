@@ -31,25 +31,13 @@ public class SlotDrop : MonoBehaviour, IDropHandler
         {
             gameHandler.P1AChoice(collision.tag);
         }
-        else if(gameObject.tag == "P2a")
-        {
-            gameHandler.P2AChoice(collision.tag);
-        }
         else if (gameObject.tag == "P1b")
         {
             gameHandler.P1BChoice(collision.tag);
         }
-        else if (gameObject.tag == "P2b")
-        {
-            gameHandler.P2BChoice(collision.tag);
-        }
         else if (gameObject.tag == "P1c")
         {
             gameHandler.P1CChoice(collision.tag);
-        }
-        else if (gameObject.tag == "P2c")
-        {
-            gameHandler.P2CChoice(collision.tag);
         }
     }
 
