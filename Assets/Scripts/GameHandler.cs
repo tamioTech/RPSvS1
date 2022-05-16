@@ -11,24 +11,26 @@ public class GameHandler : MonoBehaviour
     [SerializeField] Transform gloveHome, newspaperHome, swordHome;
     [SerializeField] GameObject p2a1, p2a2, p2a3, p2b1, p2b2, p2b3;
     [SerializeField] GameObject scoreboard;
+    [SerializeField] private int score = 2;
 
-    private int score = 4;
     private string P1a, P1b, P2a, P2b = null;
-
-    string[] rdmDraw = new string[] { "BoxingGlove", "Newspaper", "Sword" };
-
-    bool slotAFilled, slotBFilled, battling;
+    private string[] rdmDraw = new string[] { "BoxingGlove", "Newspaper", "Sword" };
+    private int gameStartScore = 3;
+    bool slotAFilled, slotBFilled, battling, gameOn;
 
     Slider scoreboardSlider;
+    DJMickeyMouse dj;
 
 
 
     private void Awake()
     {
         scoreboardSlider = scoreboard.GetComponent<Slider>();
+        dj = FindObjectOfType<DJMickeyMouse>();
         slotAFilled = false;
         slotBFilled = false;
         battling = false;
+        gameOn = true;
     }
 
     private void Update()
@@ -57,11 +59,7 @@ public class GameHandler : MonoBehaviour
 
     public void BeginBattleButtonPressed()
     {
-        print("slotAFilled1:" + slotAFilled);
-        print("slotBFilled1:" + slotBFilled);
-
-        print("begin battle");
-
+        if (!gameOn) return;
         Player2RandomCards();
         if (P1a == null || P2a == null) return;
         if (P1b == null || P2b == null) return;
@@ -100,8 +98,28 @@ public class GameHandler : MonoBehaviour
 
     private void CheckScore()
     {
-        if (score <= 0) { print("P2 WINS!!!"); }
-        if (score >=6) { print("P1 WINS!!!"); }
+        if (score <= 0)
+        {
+            print("P2 WINS!!!");
+            dj.PlayVictoryMusic();
+            gameOn = false;
+            return;
+        }
+        if (score >=6)
+        {
+            print("P1 WINS!!!");
+            dj.PlayVictoryMusic();
+            gameOn = false;
+            return;
+        }
+        if(score == 1 || score ==5)
+        {
+            dj.PlayPanicMusic();
+        }
+        else
+        {
+            dj.PlayMusic();
+        }
     }
 
     private void SlotABattle()
@@ -197,8 +215,6 @@ public class GameHandler : MonoBehaviour
         P2a = null;
         P1b = null;
         P2b = null;
-        //P1c = null;
-        //P2c = null;
 
         p2a1.SetActive(false);
         p2a2.SetActive(false);
@@ -206,9 +222,6 @@ public class GameHandler : MonoBehaviour
         p2b1.SetActive(false);
         p2b2.SetActive(false);
         p2b3.SetActive(false);
-        //p2c1.SetActive(false);
-        //p2c2.SetActive(false);
-        //p2c3.SetActive(false);
 
         #endregion
 
@@ -231,16 +244,13 @@ public class GameHandler : MonoBehaviour
         }
         #endregion
 
-        
-
-        print("slotAFilled1:" + slotAFilled);
-        print("slotBFilled1:" + slotBFilled);
     }
 
     public void ResetGame()
     {
+        gameOn = true;
         NextRound();
-        score = 4;
+        score = gameStartScore;
         UpdateScoreBoard();
     }
 

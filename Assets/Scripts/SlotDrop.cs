@@ -6,10 +6,12 @@ using UnityEngine.EventSystems;
 public class SlotDrop : MonoBehaviour, IDropHandler
 {
     GameHandler gameHandler;
+    SFXManager sfxManager;
 
     private void Awake()
     {
         gameHandler = FindObjectOfType<GameHandler>();
+        sfxManager = FindObjectOfType<SFXManager>();
     }
 
     public void OnDrop(PointerEventData eventData)
@@ -17,6 +19,7 @@ public class SlotDrop : MonoBehaviour, IDropHandler
         if(eventData.pointerDrag != null)
         {
             eventData.pointerDrag.GetComponent<Transform>().position = this.transform.position;
+            sfxManager.playCardDroppedSFX();
             
         }
     }
