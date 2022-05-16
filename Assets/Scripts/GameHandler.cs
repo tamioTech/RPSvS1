@@ -20,6 +20,8 @@ public class GameHandler : MonoBehaviour
 
     Slider scoreboardSlider;
     DJMickeyMouse dj;
+    Bomb bomb;
+    AudioSource bombAudioSource;
 
 
 
@@ -27,6 +29,8 @@ public class GameHandler : MonoBehaviour
     {
         scoreboardSlider = scoreboard.GetComponent<Slider>();
         dj = FindObjectOfType<DJMickeyMouse>();
+        bomb = FindObjectOfType<Bomb>();
+        bombAudioSource = bomb.GetComponent<AudioSource>();
         slotAFilled = false;
         slotBFilled = false;
         battling = false;
@@ -101,24 +105,28 @@ public class GameHandler : MonoBehaviour
         if (score <= 0)
         {
             print("P2 WINS!!!");
-            dj.PlayVictoryMusic();
+            bomb.PlayExplosionSFX();
+            //dj.PlayVictoryMusic();
             gameOn = false;
             return;
         }
         if (score >=6)
         {
             print("P1 WINS!!!");
-            dj.PlayVictoryMusic();
+            bomb.PlayExplosionSFX();
+            //dj.PlayVictoryMusic();
             gameOn = false;
             return;
         }
         if(score == 1 || score ==5)
         {
             dj.PlayPanicMusic();
+            bomb.PlaySizzleSFX();
         }
         else
         {
             dj.PlayMusic();
+            bombAudioSource.Stop();
         }
     }
 
