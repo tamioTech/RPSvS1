@@ -6,21 +6,20 @@ public class Bomb : MonoBehaviour
 {
     [SerializeField] AudioClip sizzleSFX;
     [SerializeField] AudioClip explosionSFX;
-    [SerializeField] Transform fuseTr;
-    [SerializeField] Transform handleTr;
+    [SerializeField] GameObject fuseP1Gao;
+    [SerializeField] GameObject fuseP2Gao;
     //[SerializeField] Sprite bombSprite;
     //[SerializeField] Sprite explosionSprite;
 
     AudioSource audioSource;
-    Camera camera;
 
-    int x, y;
     // Start is called before the first frame update
 
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
-        camera = GetComponent<Camera>();
+        fuseP1Gao.SetActive(false);
+        fuseP2Gao.SetActive(false);
     }
     void Start()
     {
@@ -30,13 +29,32 @@ public class Bomb : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
-    private void FusePosition()
+    public void FusePosition()
     {
-        //Vector2 newPos = camera.WorldToScreenPoint(handleTr.position);
-        //fuseTr.position = newPos/cg.canvas;
+
+    }
+
+    public void LightP1Fuse()
+    {
+        fuseP1Gao.SetActive(true);
+    }
+
+    public void NoP1Fuse()
+    {
+        fuseP1Gao.SetActive(false);
+    }
+
+    public void LightP2Fuse()
+    {
+        fuseP2Gao.SetActive(true);
+    }
+
+    public void NoP2Fuse()
+    {
+        fuseP2Gao.SetActive(false);
     }
 
     public void PlaySizzleSFX()

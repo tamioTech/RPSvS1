@@ -34,7 +34,9 @@ public class GameHandler : MonoBehaviour
         slotAFilled = false;
         slotBFilled = false;
         battling = false;
+        score = gameStartScore;
         gameOn = true;
+        
     }
 
     private void Update()
@@ -106,27 +108,40 @@ public class GameHandler : MonoBehaviour
         {
             print("P2 WINS!!!");
             bomb.PlayExplosionSFX();
-            //dj.PlayVictoryMusic();
+            dj.PlayVictoryMusic();
             gameOn = false;
+            bomb.NoP1Fuse();
+            bomb.NoP2Fuse();
             return;
         }
         if (score >=6)
         {
             print("P1 WINS!!!");
             bomb.PlayExplosionSFX();
-            //dj.PlayVictoryMusic();
+            dj.PlayVictoryMusic();
             gameOn = false;
+            bomb.NoP1Fuse();
+            bomb.NoP2Fuse();
             return;
         }
-        if(score == 1 || score ==5)
+        if(score == 1)
         {
-            dj.PlayPanicMusic();
             bomb.PlaySizzleSFX();
+            dj.PlayPanicMusic();
+            bomb.LightP1Fuse();
+        }
+        else if(score == 5)
+        {
+            bomb.PlaySizzleSFX();
+            dj.PlayPanicMusic();
+            bomb.LightP2Fuse();
         }
         else
         {
             dj.PlayMusic();
             bombAudioSource.Stop();
+            bomb.NoP1Fuse();
+            bomb.NoP2Fuse();
         }
     }
 
