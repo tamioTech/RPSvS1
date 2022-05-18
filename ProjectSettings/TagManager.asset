@@ -19,6 +19,7 @@ TagManager:
   - P2b
   - P2c
   - P2Card
+  - FxTemporaire
   layers:
   - Default
   - TransparentFX
@@ -55,4 +56,16 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: bomb
+    uniqueID: 2083740851
+    locked: 0
+  - name: fuse
+    uniqueID: 2216552891
+    locked: 0
+  - name: explosion
+    uniqueID: 423416007
+    locked: 0
+  - name: New Layer 4
+    uniqueID: 314901371
     locked: 0
